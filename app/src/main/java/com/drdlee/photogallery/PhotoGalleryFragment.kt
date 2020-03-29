@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drdlee.photogallery.api.FlickrFetchr
+import com.drdlee.photogallery.api.GalleryItem
 
 private const val TAG = "AppDebug"
 
@@ -21,10 +22,10 @@ class PhotoGalleryFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val flickrLiveData: LiveData<String> = FlickrFetchr().fetchContents()
+        val flickrLiveData: LiveData<List<GalleryItem>> = FlickrFetchr().fetchPhotos()
         flickrLiveData.observe(
-            this, Observer { responseString ->
-                Log.d(TAG, "onCreate: $responseString")
+            this, Observer { galleryItems ->
+                Log.d(TAG, "onCreate: $galleryItems")
             }
         )
     }
